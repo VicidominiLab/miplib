@@ -84,17 +84,17 @@ def main():
         imwrite(os.path.join(root_dir, ism_result_name),
                 imops.enhance_contrast(ism_result, percent_saturated=.3)
                 if args.enhance_contrast_on_save
-                else imops.rescale_to_8_bit(ism_result))
+                else Image(ism_result.astype(np.uint16), ism_result.spacing))
 
         imwrite(os.path.join(root_dir, confocal_result_name),
                 imops.enhance_contrast(result_sum, percent_saturated=.3)
                 if args.enhance_contrast_on_save
-                else imops.rescale_to_8_bit(result_sum))
+                else Image(result_sum.astype(np.uint16), result_sum.spacing))
 
         imwrite(os.path.join(root_dir, confocal_closed_result_name),
                 imops.enhance_contrast(data[0,12], percent_saturated=.3)
                 if args.enhance_contrast_on_save
-                else imops.rescale_to_8_bit(data[0, 12]))
+                else Image(data[0, 12].astype(np.uint16), result_sum.spacing))
 
         # Calculate static ISM if one so desires
         if any(args.ism_mode == mode for mode in ("static", "rl", "all")):
@@ -110,7 +110,8 @@ def main():
             imwrite(os.path.join(root_dir, static_ism_result_name),
                     imops.enhance_contrast(static_ism_result, percent_saturated=.3)
                     if args.enhance_contrast_on_save
-                    else imops.rescale_to_8_bit(static_ism_result))
+                    else Image(static_ism_result.astype(np.uint16), static_ism_result.spacing))
+
 
 
         # Run FRC based Wiener filter, if requested

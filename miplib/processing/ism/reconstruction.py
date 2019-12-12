@@ -12,6 +12,7 @@ from miplib.processing.windowing import apply_hamming_window
 import miplib.processing.ism.helpers as ismutils
 from miplib.processing import transform as tfm
 
+
 def find_image_shifts(data, options, photosensor=0, fixed_idx=12):
     """
     Register all images in an ISM ArrayDetectorData dataset. The central image (pixel 12)
@@ -48,7 +49,7 @@ def find_image_shifts(data, options, photosensor=0, fixed_idx=12):
     return x, y, transforms
 
 
-def find_static_image_shifts(pitch, wavelength, fov, na, alpha=0.5, width=5):
+def find_static_image_shifts(pitch, wavelength, fov, na, alpha=0.5, width=5, rotation=0):
     """
     Generate spatial transforms for ISM image reconstruction, based on theoretical values.
     :param pitch: the detector pixel spacing
@@ -68,8 +69,11 @@ def find_static_image_shifts(pitch, wavelength, fov, na, alpha=0.5, width=5):
 
     magnification = d_detector_ip/d_detector_sp
 
-    y, x = ismutils.calculate_theoretical_shifts_xy(pitch, magnification, alpha=alpha)
-    return tfm.make_translation_transforms_from_xy(x, y)
+    x,y = ismutils.calculate_theoretical_shifts_xy(pitch, magnification, alpha=alpha)
+    if rotation != 0:
+        x,y = tfm.rotate_xy_points_lists(y, x, rotation)
+
+    return tfm.make_translation_transforms_from_xy(y, x)
 
 
 def find_image_shifts_frequency_domain(data, photosensor=0):

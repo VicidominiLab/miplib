@@ -26,11 +26,7 @@ setup(
         ]
     },
     platforms=["any"],
-    url='https://github.com/sakoho81/miplib',
-<<<<<<< HEAD
-=======
     download_url="https://github.com/sakoho81/miplib/archive/v1.0.3.tar.gz",
->>>>>>> public
     license='BSD',
     author='Sami Koho',
     author_email='sami.koho@gmail.com',
