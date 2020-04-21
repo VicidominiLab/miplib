@@ -34,6 +34,7 @@ def main():
     files_list.sort()
     print('Number of images to analyze: {}'.format(len(files_list)))
 
+    #df_main = pandas.DataFrame(0, index=np.arange(len(files_list)), columns=["Image", "Depth", "Kind", "Resolution"])
     df_main = pandas.DataFrame(0, index=np.arange(len(files_list)), columns=["Image", "Resolution"])
 
     if args.frc_mode == "two-image":
@@ -77,6 +78,7 @@ def main():
             resolution = result.resolution['resolution']
             #df_main.iloc[idx] = title, depth, kind, resolution
             df_main.iloc[idx] = title, resolution
+
     else:
         raise NotImplementedError()
 
