@@ -80,10 +80,6 @@ def main():
             fig = scatter.xy_scatter_plot_with_labels(
                 y, x, range(len(x)), size=args.plot_size)
 
-            # from matplotlib import pyplot as plt
-            #
-            # plt.xlim([-.3, .3])
-            # plt.ylim([-.3, .3])
             scatter_name = "{}_shifts_scatter.eps".format(filename_prefix)
             scatter_path = os.path.join(root_dir, scatter_name)
             fig.savefig(scatter_path, dpi=1200, bbox_inches='tight',
